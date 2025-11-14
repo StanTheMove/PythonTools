@@ -1,8 +1,8 @@
-import chardet
+
 def load_rules(filepath):
     rules = []
     try:
-        with open(filepath, "r") as file:
+        with open(filepath, 'r', encoding="utf-8") as file:
             for line in file:
                 rule = line.strip()
                 if rule:
@@ -14,13 +14,8 @@ def load_rules(filepath):
 def scan_file(filepath, rules):
     found = []
     try:
-        with open(filepath, "rb") as raw:
-            result = chardet.detect(raw.read())
-            encoding = result["encoding"]
-
-        with open(filepath, "r", encoding=encoding, errors="ignore") as file:
+        with open(filepath, 'r', encoding="utf-8") as file:
             content = file.read()
-
             for rule in rules:
                 if rule in content:
                     found.append(rule)
